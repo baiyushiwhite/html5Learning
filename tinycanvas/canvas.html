@@ -1,0 +1,40 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery.bigcolorpicker.css" type="text/css" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="js/jquery.bigcolorpicker.js"></script>
+</head>
+<body>
+<section id="functionPanel">
+  <button id="selectBtn">select</button>
+  <button id="pencilBtn">pencil</button>
+  <button id="straightLineBtn">straightLine</button>
+  <button id="circleBtn">circle</button>
+  <button id="rectBtn">rectangle</button>
+  <input type="file" id="fileHolder" multiple accept="image/*"/>
+  <button id="addImageBtn">add image</button>
+  <button id="clipBtn">clip</button>
+  <button id="confirmClipBtn">confirm clip</button>
+  <button id="rotateBtn">rotate</button>
+  <button id="zoomInBtn">zoom in</button>
+  <button id="zoomOutBtn">zoom out</button>
+  <button id="clearAllBtn">clear all</button>
+  <button id="fillBtn">fill shape</button>
+  <div id= "colorPickerWrapper">
+    <a href="javascript:void(0)" id="colorPicker"></a>
+  </div>
+  <select id="lineWidthSelector">
+    <option value=1>thin</option>
+    <option value=2>middle</option>
+    <option value=3>thick</option>
+  </select>
+</section>
+
+<div id="canvasWrapper">
+  <canvas id="myCanvas" width="2000" height="1000"></canvas>
+</div>
+<p id="supportPrompt"></p>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+#functionPanel {
+  width: 10%;
+  float: left;
+}
+#functionPanel button{
+  width: 100%;
+}
+#canvasWrapper {
+  margin: 0 auto;
+  width: 85%;
+  height: 95%;
+  overflow: scroll;
+  border: solid 1px;
+}
+#colorPicker {
+  background: #000;
+  width:100%;
+  height:20px;
+  display:block;
+}
+#colorPickerWrapper {
+  width:100%;
+  height:20px;
+  display:block;
+  border: solid 1px;
+}
+#lineWidthSelector {
+  width:100%;
+}
