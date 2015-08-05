@@ -1,13 +1,27 @@
+<!DOCTYPE html>
 <html>
-<meta charset='utf-8'>
 <head>
+	<meta charset='utf-8'>
 	<title>Immediate Location</title>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2a0d0a601276e38e92030de1c3487a93"></script>
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+		}
+		#map {
+			margin: auto;
+			width: 60%;
+			height: 60%;
+		}
+	</style>
 </head>
 <body>
 	<section>
 		<div id="webSocketInfo">You browser cannot support websocket.</div>
 		<div id="geoLocationInfo">You browser cannot support geolocation.</div>
 	</section>
+	<div id="map"></div>
 	<script src="immediateLocation.js"></script>
 </body>
 </html>

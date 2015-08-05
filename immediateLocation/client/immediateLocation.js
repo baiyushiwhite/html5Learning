@@ -1,32 +1,4 @@
-var Util = (function (window, document) {
-	var addListener, removeListener;
-	if (window.addEventListener) {
-		addListener = function (ele, type, fn) {
-			ele.addEventListener(type, fn, false);
-		};
-		removeListener = function (ele, type, fn) {
-			ele.removeEventListener(type, fn, false);
-		};
-	} else if (document.attachEvent) {
-		addListener = function (ele, type, fn) {
-			ele.attachEvent('on' + type , fn);
-		};
-		removeListener = function (ele, type, fn) {
-			ele.detachEvent('on' + type , fn);
-		};
-	} else {
-		addListener = function (ele, type, fn) {
-			ele['on' + type] = fn;
-		};
-		removeListener = function (ele, type, fn) {
-			ele['on' + type] = null;
-		};
-	}
-	return {
-		addListener: addListener,
-		removeListener: removeListener
-	}
-})(window, document);
+
 
 (function (window, document) {
 	if (!window.WebSocket || !navigator.geolocation)
@@ -35,8 +7,10 @@ var Util = (function (window, document) {
 	var geolocation = navigator.geolocation,
 		watchId,
 		myId = Math.floor(10000 * Math.random()),
-	    url = "ws://localhost:8080",
-		socket = new WebSocket(url);
+        pList = [],
+    url = "ws://localhost:8080",
+		socket = new WebSocket(url),
+		map = new BMap.Map("map");
 
 	socket.onopen = function () {
 		updateGeoLocationInfo("Begin to track.");
@@ -77,7 +51,6 @@ var Util = (function (window, document) {
 			latitude: pos.coords.latitude,
 			longitude: pos.coords.longitude
 		};
-		console.log(JSON.stringify(data));
 		socket.send(JSON.stringify(data));
 	}
 
@@ -98,18 +71,26 @@ var Util = (function (window, document) {
 				break;
 		}
 	}
-	/**
-	 * data.pid包括要更新的用户位置id
-	 * data.position更新的位置信息
-	 */
+
 	function updateLocation(data) {
+
 		var obj = JSON.parse(data);
 		var pid = obj.pid,
-			position = obj.position;
+				point = new BMap.Point(obj.latitude, obj.longitude),
+				marker = new BMap.Marker(point);
+        map.centerAndZoom("南京");
+		if (pList.indexOf(pid) != -1) {
+			var allOverlay = map.getOverlays();
+			for (var i = 0, len = allOverlay.length; i < len; i++) {
+				if (allOverlay[i].getLabel().content == pid) {
+					map.removeOverlay(allOverlay[i]);
+				}
+			}
+		} else {
+			pList.push(pid);
+		}
+		map.addOverlay(marker);
+		marker.setLabel(pid);
 	}
-
-	Util.addListener(document.getElementById("sendBtn"), 'click', function (e) {
-		socket.send(document.getElementById("messageText").value);
-	});
 })(window, document);
 
